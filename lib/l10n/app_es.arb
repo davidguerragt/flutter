@@ -1,0 +1,16 @@
+{
+    "app_title": "Mi aplicación de Banco",
+    "forgot_password": "Olvidaste la contraseña?",
+    "login": "Acceder",
+    "balance": "Saldo disponible",
+    "transfer": "Trnsferir",
+    "insufficient_funds": "Fondos insuficientes",
+    "generic_error": "Ocurrió un error. Por favor intenta de nuevo",
+    "welcome": "Bienvenido!",
+    "notAMember": "No estas registrado?",
+    "registerNow": "Regístrate ahora",
+    "continueWith": "O continúa con...",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "login": "Acceder"
+}
