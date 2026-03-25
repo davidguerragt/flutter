@@ -1,9 +1,10 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:maquetacion/core/assets.dart';
 import 'package:maquetacion/core/environment/env.dart';
+import 'package:maquetacion/features/login/presentation/state/login_provider.dart';
 import 'package:maquetacion/features/login/presentation/widgets/social_widget.dart';
 import 'package:maquetacion/l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -19,8 +20,48 @@ class LoginView extends StatelessWidget {
   }
 }
 
-class BodyWidget extends StatelessWidget {
+class BodyWidget extends StatefulWidget {
   const BodyWidget({super.key});
+  final String title = "Login";
+
+  @override
+  State<BodyWidget> createState() => _BodyWidgetState();
+}
+
+class _BodyWidgetState extends State<BodyWidget> {
+  late bool showPassword;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    showPassword = false;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print('BodyWidget dependencies changed');
+  }
+
+  @override
+  void deactivate() {
+    print('BodyWidget deactivated');
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    print('BodyWidget disposed');
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(covariant BodyWidget oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,29 +77,35 @@ class BodyWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                AppLocalizations.of(context)!.welcome,
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 24),
+              HeaderWidget(),
+              const SizedBox(height: 16),
+              // Email field
               TextField(
+                controller: emailController,
                 decoration: InputDecoration(
                   hintText: AppLocalizations.of(context)!.email,
                   border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 16),
+              // Password field with visibility toggle
               TextField(
+                controller: passwordController,
                 decoration: InputDecoration(
                   hintText: AppLocalizations.of(context)!.password,
                   border: OutlineInputBorder(),
-                  suffixIcon: Icon(Icons.visibility_off),
+                  suffixIcon: InkWell(
+                    child: showPassword
+                        ? Icon(Icons.visibility)
+                        : Icon(Icons.visibility_off),
+                    onTap: () {
+                      showPassword = !showPassword;
+                      print('Toggle password visibility: $showPassword');
+                      setState(() {});
+                    },
+                  ),
                 ),
-                obscureText: true,
+                obscureText: !showPassword,
               ),
               const SizedBox(height: 16),
               Text(
@@ -72,7 +119,11 @@ class BodyWidget extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  final email = emailController.text;
+                  final password = passwordController.text;
+                  context.read<LoginProvider>().login(email, password);
+                },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Color(0xFF006FFD)),
                 ),
@@ -81,6 +132,7 @@ class BodyWidget extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
+              //LoginButton(),
               SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -101,28 +153,6 @@ class BodyWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              // Align(
-              //   alignment: Alignment.center,
-              //   child: RichText(
-              //     text: TextSpan(
-              //       text: AppLocalizations.of(context)!.notAMember,
-              //       style: TextStyle(color: Colors.black, fontSize: 14),
-              //       children: [
-              //         TextSpan(
-              //           text: AppLocalizations.of(context)!.registerNow,
-              //           recognizer: TapGestureRecognizer()
-              //             ..onTap = () {
-              //               print('Navigate to registration page');
-              //             },
-              //           style: TextStyle(
-              //             color: Color(0xFF006FFD),
-              //             fontWeight: FontWeight.bold,
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
               SizedBox(height: 24),
               Divider(),
               SizedBox(height: 24),
@@ -136,6 +166,30 @@ class BodyWidget extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class LoginButton extends StatelessWidget {
+  const LoginButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        context.read<LoginProvider>().updateTitle('Haciendo login');
+        // Provider.of<LoginProvider>(
+        //   context,
+        //   listen: false,
+        // ).updateTitle('Haciendo login');
+      },
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Color(0xFF006FFD)),
+      ),
+      child: Text(
+        AppLocalizations.of(context)!.login,
+        style: TextStyle(color: Colors.white),
+      ),
     );
   }
 }
@@ -154,6 +208,25 @@ class SocialRow extends StatelessWidget {
         SizedBox(width: 12),
         SocialWidget.facebook(),
       ],
+    );
+  }
+}
+
+class HeaderWidget extends StatelessWidget {
+  const HeaderWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    //final title = Provider.of<LoginProvider>(context).title;
+    final title = context.watch<LoginProvider>().title;
+    return Text(
+      title,
+      //AppLocalizations.of(context)!.welcome,
+      style: TextStyle(
+        fontSize: 24,
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 }
