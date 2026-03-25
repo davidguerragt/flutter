@@ -12,9 +12,12 @@ class LoginUseCase {
   Future<User> call(String email, String password) async {
     // Aquí iría la lógica real de autenticación, como una llamada a una API.
     // Por simplicidad, vamos a simular un login exitoso si el usuario es "admin" y la contraseña es "password".
-    return await _authenticationRepository.singInWithEmailAndPassword(
+    final user = await _authenticationRepository.singInWithEmailAndPassword(
       email,
       password,
     );
+
+    user.newId = '12345';
+    return user;
   }
 }

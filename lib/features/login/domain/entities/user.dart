@@ -2,12 +2,27 @@ import 'package:maquetacion/features/login/data/models/user_model.dart';
 
 class User {
   final String id;
-  final String name;
   final String email;
+  final String name;
+  final String surname;
+  String _newId = '';
 
-  User({required this.id, required this.name, required this.email});
+  String get fullName => '$name $surname';
+  set newId(String newId) => _newId = '$newId-modified';
+
+  User({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.surname,
+  });
 
   factory User.fromModel(UserModel userModel) {
-    return User(id: userModel.id, name: userModel.name, email: userModel.email);
+    return User(
+      id: userModel.id,
+      name: userModel.name,
+      email: userModel.email,
+      surname: '', //userModel.surname,
+    );
   }
 }
