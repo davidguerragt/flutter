@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:maquetacion/core/assets.dart';
 import 'package:maquetacion/core/environment/env.dart';
+import 'package:maquetacion/features/accounts/views/transfer_view.dart';
 import 'package:maquetacion/features/login/presentation/state/login_provider.dart';
 import 'package:maquetacion/features/login/presentation/widgets/social_widget.dart';
 import 'package:maquetacion/l10n/app_localizations.dart';
@@ -119,10 +121,18 @@ class _BodyWidgetState extends State<BodyWidget> {
               ),
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   final email = emailController.text;
                   final password = passwordController.text;
-                  context.read<LoginProvider>().login(email, password);
+                  final logged = await context.read<LoginProvider>().login(
+                    email,
+                    password,
+                  );
+
+                  if (logged) {
+                    context.go('/dashoard');
+                  }
+                  //TransferView();
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Color(0xFF006FFD)),
@@ -218,7 +228,17 @@ class HeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //final title = Provider.of<LoginProvider>(context).title;
-    final title = context.watch<LoginProvider>().title;
+    final state = context.watch<LoginProvider>();
+    final title = state.title;
+    final logged = state.logged;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (logged) {
+        // Navegar a otra pantalla
+        context.go('/dashboard');
+      }
+    });
+
     return Text(
       title,
       //AppLocalizations.of(context)!.welcome,

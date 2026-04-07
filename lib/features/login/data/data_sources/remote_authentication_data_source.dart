@@ -12,7 +12,7 @@ class RemoteAuthenticationDataSource {
       Duration(seconds: 2),
     ); // Simula el tiempo de respuesta de la API
 
-    if (email == "dguerra@correo.com" && password == "1234567") {
+    if (email == "dguerra" && password == "1234567") {
       return UserModel(
         id: "123",
         name: "John Doe",
