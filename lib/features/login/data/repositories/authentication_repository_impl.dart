@@ -1,15 +1,20 @@
+import 'package:maquetacion/features/login/data/data_sources/local_authentication_data_source.dart';
 import 'package:maquetacion/features/login/data/data_sources/remote_authentication_data_source.dart';
 import 'package:maquetacion/features/login/data/models/user_password_model.dart';
 import 'package:maquetacion/features/login/domain/entities/user.dart';
 import 'package:maquetacion/features/login/domain/repositories/authentication_repository.dart';
 
 class AuthenticationRepositoryImpl extends AuthenticationRepository {
-  final RemoteAuthenticationDataSource _remoteAuthenticationDataSource;
+  final RemoteAutheticationDataSource _remoteAutheticationDataSource;
+  final LocalAuthenticationDataSource _localAuthenticationDataSource;
 
   AuthenticationRepositoryImpl({
-    RemoteAuthenticationDataSource? remoteAuthenticationDataSource,
-  }) : _remoteAuthenticationDataSource =
-           remoteAuthenticationDataSource ?? RemoteAuthenticationDataSource();
+    RemoteAutheticationDataSource? remoteAutheticationDataSource,
+    LocalAuthenticationDataSource? localAuthenticationDataSource,
+  }) : _remoteAutheticationDataSource =
+           remoteAutheticationDataSource ?? RemoteAutheticationDataSource(),
+       _localAuthenticationDataSource =
+           localAuthenticationDataSource ?? LocalAuthenticationDataSource();
 
   @override
   Future<String> getAccessToken() {
@@ -24,21 +29,38 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<bool> isSignedIn() {
-    // TODO: implement isSignedIn
-    throw UnimplementedError();
+  Future<bool> isSignedIn() async {
+    final sessionToken = await _localAuthenticationDataSource.getSessionToken();
+    return sessionToken != null;
   }
 
   @override
-  Future<bool> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<bool> logOut() async {
+    await _localAuthenticationDataSource.clearSession();
+
+    return true;
   }
 
   @override
   Future<bool> registerWithEmailAndPassword(String email, String password) {
     // TODO: implement registerWithEmailAndPassword
     throw UnimplementedError();
+  }
+
+  @override
+  Future<User> signIUpWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
+    final UserPasswordModel userPasswordModel = UserPasswordModel(
+      email: email,
+      password: password,
+    );
+
+    final userModel = await _remoteAutheticationDataSource
+        .signIUpWithEmailAndPassword(userPasswordModel);
+
+    return User.fromModel(userModel);
   }
 
   @override
@@ -54,14 +76,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<User> singInWithEmailAndPassword(String email, String password) async {
-    final UserPasswordModel userPasswordModel = UserPasswordModel(
-      email: email,
-      password: password,
-    );
-
-    final userModel = await _remoteAuthenticationDataSource
-        .singInWithEmailAndPassword(userPasswordModel);
-    return User.fromModel(userModel);
+  Future<void> saveSession(String token) async {
+    await _localAuthenticationDataSource.saveSession(token);
   }
 }

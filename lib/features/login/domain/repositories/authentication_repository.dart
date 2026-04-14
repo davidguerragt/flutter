@@ -5,8 +5,9 @@ abstract class AuthenticationRepository {
   Future<void> signOut();
   Future<bool> isSignedIn();
   Future<String> getUserEmail();
-  Future<bool> logout();
+  Future<bool> logOut();
   Future<bool> registerWithEmailAndPassword(String email, String password);
   Future<String> getAccessToken();
-  Future<User> singInWithEmailAndPassword(String email, String password);
+  Future<User> signIUpWithEmailAndPassword(String email, String password);
+  Future<void> saveSession(String token);
 }
