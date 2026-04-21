@@ -34,4 +34,9 @@ class LoginProvider extends ChangeNotifier {
   void loginWithFacebook() {
     notifyListeners();
   }
+
+  void checkIfLogged() {
+    title = 'Checking login...';
+    notifyListeners();
+  }
 }

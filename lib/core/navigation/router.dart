@@ -1,25 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:maquetacion/features/accounts/presentation/states/credit_request_provider.dart';
 import 'package:maquetacion/features/accounts/presentation/views/credit_request_view.dart';
 import 'package:maquetacion/features/collections/presentation/state/collection_provider.dart';
-import 'package:maquetacion/features/collections/presentation/views/collection_view.dart';
 import 'package:maquetacion/features/collections/presentation/views/confirmation_view.dart';
 import 'package:maquetacion/features/dashboard/views/dashboard_view.dart';
-//import 'package:maquetacion/features/accounts/views/transfer_view.dart';
+import 'package:maquetacion/features/login/presentation/state/login_cubit.dart';
 import 'package:maquetacion/features/login/presentation/state/login_provider.dart';
+import 'package:maquetacion/features/login/presentation/views/login_cubit_view.dart';
+//import 'package:maquetacion/features/accounts/views/transfer_view.dart';
 import 'package:maquetacion/features/login/presentation/views/login_view.dart';
 import 'package:maquetacion/features/profile/presentation/views/dawshboard_view.dart';
 import 'package:provider/provider.dart';
 
 final router = GoRouter(
   routes: [
+    // GoRoute(
+    //   name: Routes.collectionPayBill,
+    //   path: '/',
+    //   builder: (context, state) => ChangeNotifierProvider<CollectionProvider>(
+    //     create: (_) => CollectionProvider(),
+    //     child: const CollectionView(),
+    //   ),
+    // ),
     GoRoute(
       name: Routes.collectionPayBill,
       path: '/',
-      builder: (context, state) => ChangeNotifierProvider<CollectionProvider>(
-        create: (_) => CollectionProvider(),
-        child: const CollectionView(),
+      builder: (context, state) => ChangeNotifierProvider<LoginProvider>(
+        create: (_) => LoginProvider()..checkIfLogged(),
+        child: const LoginView(),
+      ),
+    ),
+    GoRoute(
+      name: Routes.loginCubit,
+      path: '/',
+      builder: (context, state) => BlocProvider<LoginCubit>(
+        create: (context) => LoginCubit()..checkIfLogged(),
+        child: const LoginCubitView(),
       ),
     ),
 
@@ -63,6 +81,17 @@ final router = GoRouter(
             );
           },
         ),
+        GoRoute(
+          name: Routes.dashboard,
+          path: '/dashboard',
+          builder: (context, state) {
+            final provider = state.extra as LoginProvider;
+            return ChangeNotifierProvider.value(
+              value: provider,
+              child: DashboardView(),
+            );
+          },
+        ),
         // GoRoute(
         //   name: Routes.collectionPayBill,
         //   path: '/collections-pay-bill',
@@ -80,4 +109,5 @@ abstract class Routes {
   static const String profile = 'profile';
   static const String collectionPayBill = 'collections-pay-bill';
   static const String collectionConfirmation = 'collectdion-confirmation';
+  static const String loginCubit = 'login-cubit';
 }
