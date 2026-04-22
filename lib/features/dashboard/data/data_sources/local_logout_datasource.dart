@@ -1,4 +1,4 @@
-import 'package:maquetacion/core/local_storage.dart';
+import 'package:session_3/core/local_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalLogoutDatasource {

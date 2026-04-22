@@ -12,7 +12,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get app_title => 'My Banking App';
 
   @override
-  String get forgot_password => 'forgot_password?';
+  String get forgot_password => 'Forgot password?';
 
   @override
   String get login => 'Login';
@@ -21,29 +21,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get balance => 'Available balance';
 
   @override
-  String get transfer => 'Trnsfer';
+  String get transfer => 'Transfer';
 
   @override
   String get insufficient_funds => 'Insufficient funds';
 
   @override
-  String get generic_error => 'An error ocurred. Please try again';
-
-  @override
-  String get welcome => 'Welcome!';
-
-  @override
-  String get notAMember => 'Not a member?';
-
-  @override
-  String get registerNow => 'Register Now';
-
-  @override
-  String get continueWith => 'Or continue with...';
-
-  @override
-  String get email => 'Email Address';
-
-  @override
-  String get password => 'Password';
+  String get generic_error => 'An error occurred. Please try again.';
 }

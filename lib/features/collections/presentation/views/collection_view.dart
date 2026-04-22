@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:maquetacion/core/assets.dart';
-import 'package:maquetacion/core/navigation/router.dart';
-import 'package:maquetacion/features/collections/presentation/state/collection_provider.dart';
-import 'package:maquetacion/features/collections/presentation/widgets/network_widget.dart';
+import 'package:session_3/core/assets.dart';
+import 'package:session_3/core/navigation/router.dart';
+import 'package:session_3/features/collections/presentation/state/collection_provider.dart';
+import 'package:session_3/features/collections/presentation/widgets/network_widget.dart';
 import 'package:provider/provider.dart';
-//import 'package:maquetacion/l10n/app_localizations.dart';
+//import 'package:session_3/l10n/app_localizations.dart';
 
 class CollectionViewModel {
   final String companyName;

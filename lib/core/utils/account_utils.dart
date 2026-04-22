@@ -1,4 +1,4 @@
-import 'package:maquetacion/features/accounts/domain/entities/account.dart';
+import 'package:session_3/features/accounts/domain/entities/account.dart';
 
 AccountType toAccountType(String accountType) {
   switch (accountType) {

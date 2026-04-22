@@ -3,7 +3,7 @@ class AccountModel {
   final String accountType;
   final String accountId;
   final double? balance;
-  final double overdraftLimit;
+  final double? overdraftLimit;
 
   AccountModel({
     required this.userId,

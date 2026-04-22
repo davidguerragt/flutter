@@ -1,6 +1,6 @@
-import 'package:maquetacion/features/accounts/data/data_sources/remote_account_data_source.dart';
-import 'package:maquetacion/features/accounts/data/models/accounts_model.dart';
-import 'package:maquetacion/features/accounts/domain/repositories/account_repository.dart';
+import 'package:session_3/features/accounts/data/data_sources/remote_account_data_source.dart';
+import 'package:session_3/features/accounts/data/models/accounts_model.dart';
+import 'package:session_3/features/accounts/domain/repositories/account_repository.dart';
 
 class AccountsRepositoryImpl implements AccountRepository {
   final RemoteAccountDataSource _remoteAccountsDataSource;

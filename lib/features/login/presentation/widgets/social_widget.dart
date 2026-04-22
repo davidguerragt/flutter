@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:maquetacion/core/assets.dart';
+import 'package:session_3/core/assets.dart';
 
 class SocialWidget extends StatelessWidget {
   const SocialWidget({

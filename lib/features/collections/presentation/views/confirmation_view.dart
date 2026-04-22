@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:maquetacion/core/assets.dart';
-import 'package:maquetacion/features/collections/presentation/state/collection_provider.dart';
-import 'package:maquetacion/features/collections/presentation/views/collection_view.dart';
+import 'package:session_3/core/assets.dart';
+import 'package:session_3/features/collections/presentation/state/collection_provider.dart';
+import 'package:session_3/features/collections/presentation/views/collection_view.dart';
 import 'package:provider/provider.dart';
 
 class ConfirmationView extends StatelessWidget {

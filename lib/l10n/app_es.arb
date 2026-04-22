@@ -1,16 +1,9 @@
 {
-    "app_title": "Mi aplicación de Banco",
-    "forgot_password": "Olvidaste la contraseña?",
-    "login": "Acceder",
+    "app_title": "Mi Aplicación Bancaria",
+    "forgot_password": "¿Olvidaste tu contraseña?",
+    "login": "Iniciar sesión",
     "balance": "Saldo disponible",
-    "transfer": "Trnsferir",
+    "transfer": "Transferir",
     "insufficient_funds": "Fondos insuficientes",
-    "generic_error": "Ocurrió un error. Por favor intenta de nuevo",
-    "welcome": "Bienvenido!",
-    "notAMember": "No estas registrado?",
-    "registerNow": "Regístrate ahora",
-    "continueWith": "O continúa con...",
-    "email": "Correo Electrónico",
-    "password": "Contraseña",
-    "login": "Acceder"
+    "generic_error": "Ocurrió un error. Inténtalo de nuevo."
 }

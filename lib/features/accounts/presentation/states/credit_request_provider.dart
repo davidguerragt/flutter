@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:maquetacion/features/accounts/domain/entities/credit_application.dart';
-import 'package:maquetacion/features/accounts/domain/use_cases/approve_credit_use_case.dart';
+import 'package:session_3/features/accounts/domain/entities/credit_application.dart';
+import 'package:session_3/features/accounts/domain/use_cases/approve_credit_use_case.dart';
 
 class CreditRequestProvider extends ChangeNotifier {
   final ApproveCreditUseCase _approveCreditUseCase;
@@ -26,7 +26,7 @@ class CreditRequestProvider extends ChangeNotifier {
     );
 
     isApproved = creditResult.approved;
-    approvedAmount = creditResult.amount.toInt();
+    approvedAmount = creditResult.amount;
     requestSent = true;
 
     // Aquí iría la lógica para enviar la solicitud de crédito

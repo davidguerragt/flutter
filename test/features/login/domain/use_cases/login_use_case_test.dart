@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:maquetacion/features/login/domain/usecases/log_out_use_case.dart';
+import 'package:session_3/features/login/domain/usecases/log_out_use_case.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:maquetacion/features/login/domain/repositories/authentication_repository.dart';
+import 'package:session_3/features/login/domain/repositories/authentication_repository.dart';
 
 class MockAuthenticationRepository extends Mock
     implements AuthenticationRepository {}

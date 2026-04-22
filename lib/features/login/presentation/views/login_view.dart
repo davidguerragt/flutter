@@ -1,12 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:maquetacion/core/assets.dart';
-import 'package:maquetacion/core/environment/env.dart';
-import 'package:maquetacion/features/accounts/views/transfer_view.dart';
-import 'package:maquetacion/features/login/presentation/state/login_provider.dart';
-import 'package:maquetacion/features/login/presentation/widgets/social_widget.dart';
-import 'package:maquetacion/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:session_3/core/assets.dart';
+import 'package:session_3/features/login/presentation/state/login_provider.dart';
+import 'package:session_3/features/login/presentation/widgets/social_widget.dart';
+import 'package:session_3/l10n/app_localizations.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -14,7 +13,7 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(Env.appName)),
+      backgroundColor: Colors.white,
       body: ListView(
         children: [Image.asset(Assets.loginBackground), BodyWidget()],
       ),
@@ -24,7 +23,6 @@ class LoginView extends StatelessWidget {
 
 class BodyWidget extends StatefulWidget {
   const BodyWidget({super.key});
-  final String title = "Login";
 
   @override
   State<BodyWidget> createState() => _BodyWidgetState();
@@ -37,31 +35,31 @@ class _BodyWidgetState extends State<BodyWidget> {
 
   @override
   void initState() {
-    super.initState();
     showPassword = false;
+    super.initState();
   }
 
   @override
   void didChangeDependencies() {
+    MediaQuery.of(context).size.width;
     super.didChangeDependencies();
-    print('BodyWidget dependencies changed');
   }
 
   @override
   void deactivate() {
-    print('BodyWidget deactivated');
+    // TODO: implement deactivate
     super.deactivate();
   }
 
   @override
   void dispose() {
-    print('BodyWidget disposed');
+    // TODO: implement dispose
     super.dispose();
   }
 
   @override
   void didUpdateWidget(covariant BodyWidget oldWidget) {
-    // TODO: implement didUpdateWidget
+    showPassword = false;
     super.didUpdateWidget(oldWidget);
   }
 
@@ -75,34 +73,36 @@ class _BodyWidgetState extends State<BodyWidget> {
             horizontal: constraints.maxWidth > 600
                 ? (constraints.maxWidth - 600) / 2 + 24
                 : 24,
+            vertical: 40,
           ),
+
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               HeaderWidget(),
-              const SizedBox(height: 16),
-              // Email field
+              const SizedBox(height: 24),
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
-                  hintText: AppLocalizations.of(context)!.email,
+                  hintText: 'Email Address',
                   border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 16),
-              // Password field with visibility toggle
               TextField(
                 controller: passwordController,
                 decoration: InputDecoration(
-                  hintText: AppLocalizations.of(context)!.password,
+                  hintText: 'Password',
                   border: OutlineInputBorder(),
                   suffixIcon: InkWell(
-                    child: showPassword
-                        ? Icon(Icons.visibility)
-                        : Icon(Icons.visibility_off),
+                    child: Icon(
+                      showPassword ? Icons.visibility : Icons.visibility_off,
+                    ),
                     onTap: () {
                       showPassword = !showPassword;
-                      print('Toggle password visibility: $showPassword');
+                      print('Toggle password visibility');
+                      print('showPassword: $showPassword');
+
                       setState(() {});
                     },
                   ),
@@ -111,7 +111,6 @@ class _BodyWidgetState extends State<BodyWidget> {
               ),
               const SizedBox(height: 16),
               Text(
-                //'Forgot password?',
                 AppLocalizations.of(context)!.forgot_password,
                 style: TextStyle(
                   fontSize: 12,
@@ -121,40 +120,43 @@ class _BodyWidgetState extends State<BodyWidget> {
               ),
               const SizedBox(height: 24),
               ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Color(0xFF006FFD)),
+                ),
                 onPressed: () async {
+                  /* Provider.of<LoginProvider>(
+                    context,
+                    listen: false,
+                  ).updateTitle('Haciendo login...');*/
+
                   final email = emailController.text;
                   final password = passwordController.text;
+
                   final logged = await context.read<LoginProvider>().login(
                     email,
                     password,
                   );
 
                   if (logged) {
-                    context.go('/dashoard');
+                    //  context.go('/dashboard');
                   }
-                  //TransferView();
+
+                  // Solo leer valores para ejecutar funciones
                 },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Color(0xFF006FFD)),
-                ),
-                child: Text(
-                  AppLocalizations.of(context)!.login,
-                  style: TextStyle(color: Colors.white),
-                ),
+                child: Text('Login', style: TextStyle(color: Colors.white)),
               ),
-              //LoginButton(),
               SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(AppLocalizations.of(context)!.notAMember),
+                  Text('Not a member? '),
                   Image.asset(Assets.loginBackground, width: 16, height: 16),
                   InkWell(
                     onTap: () {
                       print('Navigate to registration page');
                     },
                     child: Text(
-                      AppLocalizations.of(context)!.registerNow,
+                      'Register now',
                       style: TextStyle(
                         color: Color(0xFF006FFD),
                         fontWeight: FontWeight.bold,
@@ -163,43 +165,57 @@ class _BodyWidgetState extends State<BodyWidget> {
                   ),
                 ],
               ),
+
+              Text.rich(
+                TextSpan(
+                  text: 'Not a member?  ',
+                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  children: [
+                    TextSpan(
+                      text: 'Register now',
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          print('Navigate to registration page');
+                        },
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                textAlign: TextAlign.center,
+              ),
+              RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  text: 'Not a member?  ',
+                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  children: [
+                    TextSpan(
+                      text: 'Register now',
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          print('Navigate to registration page');
+                        },
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(height: 24),
               Divider(),
               SizedBox(height: 24),
-              Text(
-                AppLocalizations.of(context)!.continueWith,
-                textAlign: TextAlign.center,
-              ),
+              Text('Or continue with', textAlign: TextAlign.center),
               SizedBox(height: 16),
               SocialRow(),
             ],
           ),
         );
       },
-    );
-  }
-}
-
-class LoginButton extends StatelessWidget {
-  const LoginButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        context.read<LoginProvider>().updateTitle('Haciendo login');
-        // Provider.of<LoginProvider>(
-        //   context,
-        //   listen: false,
-        // ).updateTitle('Haciendo login');
-      },
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Color(0xFF006FFD)),
-      ),
-      child: Text(
-        AppLocalizations.of(context)!.login,
-        style: TextStyle(color: Colors.white),
-      ),
     );
   }
 }
@@ -222,16 +238,38 @@ class SocialRow extends StatelessWidget {
   }
 }
 
+class MovementsWidget extends StatelessWidget {
+  const MovementsWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: flujoMovimientos(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Text(
+            'Movimiento: ${snapshot.data}',
+            style: TextStyle(fontSize: 24),
+          );
+        } else {
+          return CircularProgressIndicator();
+        }
+      },
+    );
+  }
+}
+
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     //final title = Provider.of<LoginProvider>(context).title;
-    final state = context.watch<LoginProvider>();
+    final state = context
+        .watch<LoginProvider>(); // Leer valores y actualizar UI
+
     final title = state.title;
     final logged = state.logged;
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (logged) {
         // Navegar a otra pantalla
@@ -241,7 +279,6 @@ class HeaderWidget extends StatelessWidget {
 
     return Text(
       title,
-      //AppLocalizations.of(context)!.welcome,
       style: TextStyle(
         fontSize: 24,
         color: Colors.black,
@@ -249,4 +286,44 @@ class HeaderWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+class LoginButton extends StatelessWidget {
+  const LoginButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    MediaQuery.of(context).size.width;
+    Theme.of(context).primaryColor;
+
+    return ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Color(0xFF006FFD)),
+      ),
+      onPressed: () {
+        /* Provider.of<LoginProvider>(
+          context,
+          listen: false,
+        ).updateTitle('Haciendo login...');*/
+        context.read<LoginProvider>().updateTitle(
+          'Haciendo login...',
+        ); // Solo leer valores para ejecutar funciones
+      },
+      child: Text('Login', style: TextStyle(color: Colors.white)),
+    );
+  }
+}
+
+Stream<double> flujoMovimientos() async* {
+  yield 5;
+  await Future.delayed(Duration(seconds: 2));
+  yield -120000.0; // retiro
+  await Future.delayed(Duration(seconds: 1));
+  yield -30000.0; // pago
+  await Future.delayed(Duration(seconds: 1));
+  yield 50000.0; // pago
+  await Future.delayed(Duration(seconds: 1));
+  yield -30000.0; // pago
+  await Future.delayed(Duration(seconds: 1));
+  yield -50000.0; // pago
 }

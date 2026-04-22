@@ -1,16 +1,9 @@
 {
     "app_title": "My Banking App",
-    "forgot_password": "forgot_password?",
+    "forgot_password": "Forgot password?",
     "login": "Login",
     "balance": "Available balance",
-    "transfer": "Trnsfer",
+    "transfer": "Transfer",
     "insufficient_funds": "Insufficient funds",
-    "generic_error": "An error ocurred. Please try again",
-    "welcome": "Welcome!",
-    "notAMember": "Not a member?",
-    "registerNow": "Register Now",
-    "continueWith": "Or continue with...",
-    "email": "Email Address",
-    "password": "Password",
-    "login": "Login"
+    "generic_error": "An error occurred. Please try again."
 }

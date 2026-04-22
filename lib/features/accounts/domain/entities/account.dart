@@ -1,48 +1,56 @@
-import 'package:maquetacion/core/const.dart';
-import 'package:maquetacion/core/utils/string_extensions.dart';
-import 'package:maquetacion/features/accounts/data/models/account_model.dart';
+import 'package:session_3/core/consts.dart';
+import 'package:session_3/features/accounts/data/models/account_model.dart';
 
-enum AccountType { checking, savings, credit, investment, loan }
+enum AccountType { savings, checking, credit, investment, loan }
 
 class Account {
   final String userId;
   final AccountType accountType;
   final String accountId;
   final double balance;
-  final double overdraftLimit = 0.0;
+  final double overdraftLimit;
 
   bool isLocked = false;
 
-  bool get canTransfer => balance > 0 && !isLocked && isExchangeType;
-
-  bool get isExchangeType {
-    return accountType == AccountType.savings ||
-        accountType == AccountType.checking;
+  bool get canTransfer {
+    return balance > 0 && !isLocked && isExchangeType;
   }
 
-  bool get isOverdraftAllowed {
-    return overdraftLimit > 0 && accountType == AccountType.checking;
-  }
+  bool get isExchangeType =>
+      accountType == AccountType.savings || accountType == AccountType.checking;
 
-  // int get overdraftLimit {
-  //   switch (accountType) {
-  //     case AccountType.checking:
-  //       return (balance * Consts.overDraftLimitPercentage).toInt();
-  //     default:
-  //       return 0; // No overdraft allowed for other account types
-  //   }
-  // }
+  bool get isOverdraftAllowed =>
+      overdraftLimit > 0 && accountType == AccountType.checking;
+
+  /*  int get overdraftLimit {
+    if (accountType == AccountType.checking) {
+      return (balance * Consts.overdraftLimitPercentage)
+          .toInt(); // Ejemplo de límite de sobregiro para cuentas corrientes
+    }
+    return 0; // No se permite sobregiro para otros tipos de cuentas
+  }*/
+
+  /*
+  // Con método:
+  bool canTransfer() {
+      return balance > 0 && !isLocked && isExchangeType;
+    }
+  */
 
   Account({
     required this.userId,
     required this.accountType,
     required this.accountId,
+    this.overdraftLimit = 0,
     this.balance = Consts.defaultAccountBalance,
   });
 
   factory Account.fromModel({required AccountModel model}) {
     return Account(
       userId: model.userId,
+      // Con método util:
+      // accountType: toAccountType(model.accountType),
+      // Con extensión:
       accountType: model.accountType.toAccountType,
       accountId: model.accountId,
       balance: model.balance ?? Consts.defaultAccountBalance,
@@ -51,21 +59,57 @@ class Account {
 
   void transfer(double amount, Account toAccount) {
     switch (this.accountType) {
-      case AccountType.checking:
-        // Implement checking account transfer logic
-        throw UnimplementedError();
       case AccountType.savings:
-        // Implement savings account transfer logic
-        break;
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case AccountType.checking:
+        // TODO: Handle this case.
+        throw UnimplementedError();
       case AccountType.credit:
-        // Implement credit account transfer logic
+        // TODO: Handle this case.
         throw UnimplementedError();
       case AccountType.investment:
-        // Implement investment account transfer logic
+        // TODO: Handle this case.
         throw UnimplementedError();
       case AccountType.loan:
-        // Implement loan account transfer logic
+        // TODO: Handle this case.
         throw UnimplementedError();
     }
+  }
+}
+
+extension AccountTypeExtension on String {
+  AccountType get toAccountType {
+    switch (this) {
+      case 'savings':
+        return AccountType.savings;
+      case 'checking':
+        return AccountType.checking;
+      case 'credit':
+        return AccountType.credit;
+      case 'investment':
+        return AccountType.investment;
+      case 'loan':
+        return AccountType.loan;
+      default:
+        throw Exception('Invalid account type: $this');
+    }
+  }
+}
+
+AccountType toAccountType(String accountType) {
+  switch (accountType) {
+    case 'savings':
+      return AccountType.savings;
+    case 'checking':
+      return AccountType.checking;
+    case 'credit':
+      return AccountType.credit;
+    case 'investment':
+      return AccountType.investment;
+    case 'loan':
+      return AccountType.loan;
+    default:
+      throw Exception('Invalid account type: $accountType');
   }
 }

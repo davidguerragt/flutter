@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:maquetacion/features/dashboard/data/data_sources/local_logout_datasource.dart';
-import 'package:maquetacion/features/dashboard/data/repositories/logout_repository_impl.dart';
+import 'package:session_3/features/dashboard/data/data_sources/local_logout_datasource.dart';
+import 'package:session_3/features/dashboard/data/repositories/logout_repository_impl.dart';
 
 final GetIt getIt = GetIt.instance;
 

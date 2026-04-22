@@ -104,7 +104,7 @@ abstract class AppLocalizations {
   /// No description provided for @forgot_password.
   ///
   /// In en, this message translates to:
-  /// **'forgot_password?'**
+  /// **'Forgot password?'**
   String get forgot_password;
 
   /// No description provided for @login.
@@ -122,7 +122,7 @@ abstract class AppLocalizations {
   /// No description provided for @transfer.
   ///
   /// In en, this message translates to:
-  /// **'Trnsfer'**
+  /// **'Transfer'**
   String get transfer;
 
   /// No description provided for @insufficient_funds.
@@ -134,44 +134,8 @@ abstract class AppLocalizations {
   /// No description provided for @generic_error.
   ///
   /// In en, this message translates to:
-  /// **'An error ocurred. Please try again'**
+  /// **'An error occurred. Please try again.'**
   String get generic_error;
-
-  /// No description provided for @welcome.
-  ///
-  /// In en, this message translates to:
-  /// **'Welcome!'**
-  String get welcome;
-
-  /// No description provided for @notAMember.
-  ///
-  /// In en, this message translates to:
-  /// **'Not a member?'**
-  String get notAMember;
-
-  /// No description provided for @registerNow.
-  ///
-  /// In en, this message translates to:
-  /// **'Register Now'**
-  String get registerNow;
-
-  /// No description provided for @continueWith.
-  ///
-  /// In en, this message translates to:
-  /// **'Or continue with...'**
-  String get continueWith;
-
-  /// No description provided for @email.
-  ///
-  /// In en, this message translates to:
-  /// **'Email Address'**
-  String get email;
-
-  /// No description provided for @password.
-  ///
-  /// In en, this message translates to:
-  /// **'Password'**
-  String get password;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

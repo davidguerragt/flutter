@@ -1,6 +1,6 @@
-import 'package:maquetacion/core/dependencies.dart';
-import 'package:maquetacion/features/dashboard/data/repositories/logout_repository_impl.dart';
-import 'package:maquetacion/features/dashboard/domain/repositories/logout_repository.dart';
+import 'package:session_3/core/dependencies.dart';
+import 'package:session_3/features/dashboard/data/repositories/logout_repository_impl.dart';
+import 'package:session_3/features/dashboard/domain/repositories/logout_repository.dart';
 
 class LogoutUseCase {
   final LogoutRepository _logoutRepository;

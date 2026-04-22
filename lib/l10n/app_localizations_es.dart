@@ -9,41 +9,23 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get app_title => 'Mi aplicación de Banco';
+  String get app_title => 'Mi Aplicación Bancaria';
 
   @override
-  String get forgot_password => 'Olvidaste la contraseña?';
+  String get forgot_password => '¿Olvidaste tu contraseña?';
 
   @override
-  String get login => 'Acceder';
+  String get login => 'Iniciar sesión';
 
   @override
   String get balance => 'Saldo disponible';
 
   @override
-  String get transfer => 'Trnsferir';
+  String get transfer => 'Transferir';
 
   @override
   String get insufficient_funds => 'Fondos insuficientes';
 
   @override
-  String get generic_error => 'Ocurrió un error. Por favor intenta de nuevo';
-
-  @override
-  String get welcome => 'Bienvenido!';
-
-  @override
-  String get notAMember => 'No estas registrado?';
-
-  @override
-  String get registerNow => 'Regístrate ahora';
-
-  @override
-  String get continueWith => 'O continúa con...';
-
-  @override
-  String get email => 'Correo Electrónico';
-
-  @override
-  String get password => 'Contraseña';
+  String get generic_error => 'Ocurrió un error. Inténtalo de nuevo.';
 }

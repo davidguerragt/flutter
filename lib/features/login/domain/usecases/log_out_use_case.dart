@@ -1,4 +1,4 @@
-import 'package:maquetacion/features/login/domain/repositories/authentication_repository.dart';
+import 'package:session_3/features/login/domain/repositories/authentication_repository.dart';
 
 class LogOutUsecase {
   final AuthenticationRepository _authenticationRepository;

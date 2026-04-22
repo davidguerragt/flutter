@@ -1,12 +1,12 @@
-import 'package:maquetacion/features/accounts/domain/entities/account.dart';
+import 'package:session_3/features/accounts/domain/entities/account.dart';
 
 extension AccountTypeExtension on String {
   AccountType get toAccountType {
     switch (this) {
-      case 'checking':
-        return AccountType.checking;
       case 'savings':
         return AccountType.savings;
+      case 'checking':
+        return AccountType.checking;
       case 'credit':
         return AccountType.credit;
       case 'investment':
@@ -14,7 +14,7 @@ extension AccountTypeExtension on String {
       case 'loan':
         return AccountType.loan;
       default:
-        throw Exception('Unknown account type: $this');
+        throw Exception('Invalid account type: $this');
     }
   }
 }

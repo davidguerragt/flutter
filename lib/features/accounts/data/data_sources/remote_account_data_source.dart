@@ -1,4 +1,4 @@
-import 'package:maquetacion/features/accounts/data/models/accounts_model.dart';
+import 'package:session_3/features/accounts/data/models/accounts_model.dart';
 
 class RemoteAccountDataSource {
   Future<List<NewAccountModel>> getAccounts() async {

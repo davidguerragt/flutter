@@ -1,8 +1,8 @@
-import 'package:maquetacion/features/login/data/data_sources/local_authentication_data_source.dart';
-import 'package:maquetacion/features/login/data/data_sources/remote_authentication_data_source.dart';
-import 'package:maquetacion/features/login/data/models/user_password_model.dart';
-import 'package:maquetacion/features/login/domain/entities/user.dart';
-import 'package:maquetacion/features/login/domain/repositories/authentication_repository.dart';
+import 'package:session_3/features/login/data/data_sources/local_authentication_data_source.dart';
+import 'package:session_3/features/login/data/data_sources/remote_authetication_data_source.dart';
+import 'package:session_3/features/login/data/models/user_password_model.dart';
+import 'package:session_3/features/login/domain/entities.dart/user.dart';
+import 'package:session_3/features/login/domain/repositories/authentication_repository.dart';
 
 class AuthenticationRepositoryImpl extends AuthenticationRepository {
   final RemoteAutheticationDataSource _remoteAutheticationDataSource;

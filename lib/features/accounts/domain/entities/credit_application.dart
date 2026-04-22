@@ -3,4 +3,5 @@ class CreditApplication {
   final String status;
 
   CreditApplication({required this.name, required this.status});
+  
 }

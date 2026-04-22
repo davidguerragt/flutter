@@ -1,9 +1,9 @@
 class UserModel {
   final String id;
-  final String name;
   final String email;
+  final String name;
 
-  UserModel({required this.id, required this.name, required this.email});
+  UserModel({required this.id, required this.email, required this.name});
 
-  // ToDo: implement fromJson and toJson methods for serialization and deserialization
+  /// Todo: implement fromJson 
 }

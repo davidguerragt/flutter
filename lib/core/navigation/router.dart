@@ -1,32 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:maquetacion/features/accounts/presentation/states/credit_request_provider.dart';
-import 'package:maquetacion/features/accounts/presentation/views/credit_request_view.dart';
-import 'package:maquetacion/features/collections/presentation/state/collection_provider.dart';
-import 'package:maquetacion/features/collections/presentation/views/confirmation_view.dart';
-import 'package:maquetacion/features/dashboard/views/dashboard_view.dart';
-import 'package:maquetacion/features/login/presentation/state/login_cubit.dart';
-import 'package:maquetacion/features/login/presentation/state/login_provider.dart';
-import 'package:maquetacion/features/login/presentation/views/login_cubit_view.dart';
-//import 'package:maquetacion/features/accounts/views/transfer_view.dart';
-import 'package:maquetacion/features/login/presentation/views/login_view.dart';
-import 'package:maquetacion/features/profile/presentation/views/dawshboard_view.dart';
 import 'package:provider/provider.dart';
+import 'package:session_3/features/accounts/presentation/states/credit_request_provider.dart';
+import 'package:session_3/features/accounts/presentation/views/credit_request_view.dart';
+import 'package:session_3/features/collections/presentation/state/collection_provider.dart';
+import 'package:session_3/features/collections/presentation/views/confirmation_view.dart';
+import 'package:session_3/features/dashboard/presentation/state/dashboard_provider.dart';
+import 'package:session_3/features/dashboard/presentation/views/dashboard_view.dart';
+import 'package:session_3/features/login/presentation/state/login_cubit.dart';
+import 'package:session_3/features/login/presentation/state/login_provider.dart';
+import 'package:session_3/features/login/presentation/views/login_cubit_view.dart';
+import 'package:session_3/features/login/presentation/views/login_view.dart';
+import 'package:session_3/features/profile/views/dashboard_view.dart';
 
 final router = GoRouter(
   routes: [
-    // GoRoute(
-    //   name: Routes.collectionPayBill,
-    //   path: '/',
-    //   builder: (context, state) => ChangeNotifierProvider<CollectionProvider>(
-    //     create: (_) => CollectionProvider(),
-    //     child: const CollectionView(),
-    //   ),
-    // ),
     GoRoute(
-      name: Routes.collectionPayBill,
-      path: '/',
+      name: Routes.login,
+      path: '/old',
       builder: (context, state) => ChangeNotifierProvider<LoginProvider>(
         create: (_) => LoginProvider()..checkIfLogged(),
         child: const LoginView(),
@@ -36,7 +28,7 @@ final router = GoRouter(
       name: Routes.loginCubit,
       path: '/',
       builder: (context, state) => BlocProvider<LoginCubit>(
-        create: (context) => LoginCubit()..checkIfLogged(),
+        create: (_) => LoginCubit()..checkIfLogged(),
         child: const LoginCubitView(),
       ),
     ),
@@ -57,13 +49,24 @@ final router = GoRouter(
       ),
       routes: [
         GoRoute(
-          name: Routes.creditRequest,
-          path: 'solicitud-credito',
+          name: Routes.dashboard,
+          path: '/dashboard',
           builder: (context, state) =>
-              ChangeNotifierProvider<CreditRequestProvider>(
-                create: (_) => CreditRequestProvider(),
-                child: CreditRequestView(),
+              ChangeNotifierProvider<DashboardProvider>(
+                create: (_) => DashboardProvider(),
+                child: DashboardView(),
               ),
+          routes: [
+            GoRoute(
+              name: Routes.creditRequest,
+              path: 'solicitud-credito',
+              builder: (context, state) =>
+                  ChangeNotifierProvider<CreditRequestProvider>(
+                    create: (_) => CreditRequestProvider(),
+                    child: CreditRequestView(),
+                  ),
+            ),
+          ],
         ),
         GoRoute(
           name: Routes.profile,
@@ -81,22 +84,6 @@ final router = GoRouter(
             );
           },
         ),
-        GoRoute(
-          name: Routes.dashboard,
-          path: '/dashboard',
-          builder: (context, state) {
-            final provider = state.extra as LoginProvider;
-            return ChangeNotifierProvider.value(
-              value: provider,
-              child: DashboardView(),
-            );
-          },
-        ),
-        // GoRoute(
-        //   name: Routes.collectionPayBill,
-        //   path: '/collections-pay-bill',
-        //   builder: (context, state) => CollectionView(),
-        // ),
       ],
     ),
   ],
@@ -104,10 +91,10 @@ final router = GoRouter(
 
 abstract class Routes {
   static const String login = 'login';
+  static const String loginCubit = 'login_cubit';
   static const String dashboard = 'dashboard';
   static const String creditRequest = 'solicitud-credito';
   static const String profile = 'profile';
   static const String collectionPayBill = 'collections-pay-bill';
   static const String collectionConfirmation = 'collectdion-confirmation';
-  static const String loginCubit = 'login-cubit';
 }
