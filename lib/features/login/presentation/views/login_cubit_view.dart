@@ -5,7 +5,7 @@ import 'package:maquetacion/core/environment/env.dart';
 import 'package:maquetacion/features/login/presentation/state/login_cubit.dart';
 import 'package:maquetacion/features/login/presentation/widgets/social_widget.dart';
 import 'package:maquetacion/l10n/app_localizations.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginCubitView extends StatelessWidget {
   const LoginCubitView({super.key});
