@@ -1,6 +1,5 @@
 import 'package:session_3/features/login/data/repositories/authentication_repository_impl.dart';
 import 'package:session_3/features/login/domain/entities.dart/user.dart';
-import 'package:session_3/features/login/domain/entities/user.dart';
 import 'package:session_3/features/login/domain/repositories/authentication_repository.dart';
 
 class LoginUseCase {
